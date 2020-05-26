@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package faast;
+
+option go_package = "function";
+
+service Function {
+    rpc Execute(Request) returns (Response) {}
+}
+
+message Request {
+    Kind kind = 1;
+    bytes parameters = 2;
+}
+
+message Response {
+    string error = 1;
+    bytes parameters = 2;
+}
+
+enum Kind {
+    HTTP  = 0;
+    CRON  = 1;
+    STREAM = 2;
+}
+
